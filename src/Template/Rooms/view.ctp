@@ -39,37 +39,44 @@
             <td><?= h($room->modified) ?></td>
         </tr>
     </table>
-    <div class="related">
-        <h4><?= __('Related Showtimes') ?></h4>
-        <?php if (!empty($room->showtimes)): ?>
-        <table cellpadding="0" cellspacing="0">
+
+     
+<div class="showtimes index large-9 medium-8 columns content">
+    <h3><?= __('Showtimes') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Movie Id') ?></th>
-                <th scope="col"><?= __('Room Id') ?></th>
-                <th scope="col"><?= __('Start') ?></th>
-                <th scope="col"><?= __('End') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('movie_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('room_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('start') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('end') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($room->showtimes as $showtimes): ?>
+        </thead>
+        <tbody>
+            <?php foreach ($showtimes as $showtime): ?>
             <tr>
-                <td><?= h($showtimes->id) ?></td>
-                <td><?= h($showtimes->movie_id) ?></td>
-                <td><?= h($showtimes->room_id) ?></td>
-                <td><?= h($showtimes->start) ?></td>
-                <td><?= h($showtimes->end) ?></td>
-                <td><?= h($showtimes->created) ?></td>
-                <td><?= h($showtimes->modified) ?></td>
+                <td><?= $this->Number->format($showtime->id) ?></td>
+                <td><?= $showtime->has('movie') ? $this->Html->link($showtime->movie->name, ['controller' => 'Movies', 'action' => 'view', $showtime->movie->id]) : '' ?></td>
+                <td><?= $showtime->has('room') ? $this->Html->link($showtime->room->name, ['controller' => 'Rooms', 'action' => 'view', $showtime->room->id]) : '' ?></td>
+                <td><?= h($showtime->start) ?></td>
+                <td><?= h($showtime->end) ?></td>
+                <td><?= h($showtime->created) ?></td>
+                <td><?= h($showtime->modified) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Showtimes', 'action' => 'view', $showtimes->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Showtimes', 'action' => 'edit', $showtimes->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Showtimes', 'action' => 'delete', $showtimes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $showtimes->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $showtime->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $showtime->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $showtime->id], ['confirm' => __('Are you sure you want to delete # {0}?', $showtime->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
+        </tbody>
+    </table>
+                
+        
+        
+        
 </div>

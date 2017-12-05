@@ -5,7 +5,7 @@ use App\Controller\AppController;
 
 /**
  * Rooms Controller
- *
+ * @property \App\Model\Table\ShowTimesTable $Showtimes
  * @property \App\Model\Table\RoomsTable $Rooms
  *
  * @method \App\Model\Entity\Room[] paginate($object = null, array $settings = [])
@@ -35,13 +35,20 @@ class RoomsController extends AppController
      */
     public function view($id = null)
     {
-        $room = $this->Rooms->get($id, [
-            'contain' => ['Showtimes']
-        ]);
-        $this->Rooms->Showtimes->find();
+        $room = $this->Rooms->get($id);
+        
+        
+        $showtimesTab = $this->Rooms->Showtimes
+        ->find()
+        ->select(['id','movie_id','room_id','start','end' ])
+        ->where(['room_id' => $room->id]);
+        $this->set('showtimes',$showtimesTab);
         $this->set('room', $room);
         $this->set('_serialize', ['room']);
     }
+    
+  
+    
 
     /**
      * Add method
