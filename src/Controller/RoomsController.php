@@ -41,6 +41,7 @@ class RoomsController extends AppController
         $date_fin = new Time();
         $date_fin->modify('+7 days');
         
+        
         $showtimesTab = $this->Rooms->Showtimes
         ->find()
         ->where(['room_id' => $room->id])
@@ -52,9 +53,17 @@ class RoomsController extends AppController
         $this->set('showtimes',$showtimesTab);
         $this->set('room', $room);
         $this->set('_serialize', ['room']);
+        
+        $items = ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'];
+        $showtimesByDayNumber=[];
+        foreach($showtimes as $showtime){
+            $showtimesByDayNumber[$showtime->start->format('N')][]=$showtime;
     }
     
-  
+    $this->set('showtimeByDayNumber',$showtimesByDayNumber);
+    $this->set('items',$items);
+    
+   }
     
 
     /**

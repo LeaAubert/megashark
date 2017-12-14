@@ -80,3 +80,59 @@
         
         
 </div>
+
+<div class="showtimes index large-9 medium-8 columns content">
+    <h3><?= __('Planning Semaine 1') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th scope="col"><?= $this->Paginator->sort('Jour') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('movie_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('start') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('end') ?></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($showtimes as $showtime): ?>
+            <tr>
+                <td><?= h($showtime->start) ?></td>
+                <td><?=$showtime->has('movie') ? $this->Html->link($showtime->movie->name, ['controller' => 'Movies', 'action' => 'view', $showtime->movie->id]) : '' ?></td>
+                <td><?= h($showtime->start) ?></td>
+                <td><?= h($showtime->end) ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>      
+</div>
+
+<div class="days index large-9 medium-8 columns content">
+    <h3><?= __('Planning semaine 2') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th scope="col"><?= $this->Paginator->sort('lundi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('mardi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('mercredi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('jeudi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('vendredi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('samedi') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('dimanche') ?></th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <?php foreach ($items as $item): ?>
+                <td><?$showtime->has('movie') ? $this->Html->link($showtime->movie->name, ['controller' => 'Movies', 'action' => 'view', $showtime->movie->id]) : '' ?></td>
+            <?php endforeach; ?>
+            <?php foreach ($showtimes as $showtime): ?>
+            
+                <td><?=$showtime->has('movie') ? $this->Html->link($showtime->movie->name, ['controller' => 'Movies', 'action' => 'view', $showtime->movie->id]) : '' ?></td>
+                <td><?= h($showtime->start) ?></td>
+                <td><?= h($showtime->end) ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
